@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.example.eksamensprojekt3sem.Enums.PaymentStatus;
+import org.example.eksamensprojekt3sem.Team.Team;
 
 import java.util.Date;
 
@@ -41,10 +42,14 @@ public class Member {
     @NotNull(message = "Betalingstatus skal udfyldes")
     private PaymentStatus paymentStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team team;
+
     public Member() {
     }
 
-    public Member(String name, long memberId, String email, String phone, String address, Date dateOfBirth, PaymentStatus paymentStatus) {
+    public Member(String name, long memberId, String email, String phone, String address, Date dateOfBirth, PaymentStatus paymentStatus, Team team) {
         this.name = name;
         this.memberId = memberId;
         this.email = email;
@@ -52,6 +57,7 @@ public class Member {
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.paymentStatus = paymentStatus;
+        this.team = team;
     }
 
     public long getMemberId() {
@@ -108,5 +114,13 @@ public class Member {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
